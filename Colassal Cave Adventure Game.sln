@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colassal Cave Adventure Game", "Colassal Cave Adventure Game.csproj", "{7AF302D9-DF38-4E48-83AF-228547E1B7AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "serializetest", "..\serializetest\serializetest.csproj", "{5F0B151B-6822-4A25-A7FC-EAFD4E2758D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AF302D9-DF38-4E48-83AF-228547E1B7AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF302D9-DF38-4E48-83AF-228547E1B7AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF302D9-DF38-4E48-83AF-228547E1B7AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF302D9-DF38-4E48-83AF-228547E1B7AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F0B151B-6822-4A25-A7FC-EAFD4E2758D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F0B151B-6822-4A25-A7FC-EAFD4E2758D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F0B151B-6822-4A25-A7FC-EAFD4E2758D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F0B151B-6822-4A25-A7FC-EAFD4E2758D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BFAD1C3-B271-4F31-A42D-5EF24521E842}
+	EndGlobalSection
+EndGlobal
