@@ -2,6 +2,7 @@
 
 public class World
 {
+	public Location startingLocation;
 	public World()
 	{
 		//Console.WriteLine("\nEntering Constructor for Wor
