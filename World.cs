@@ -1,56 +1,128 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+//using Microsoft.VisualBasic;
 
 public class World
 {
-	public Location startingLocation;
-	public World()
-	{
-		//Console.WriteLine("\nEntering Constructor for Wor
-		
-		Location c = new Location();
+    public Location startingLocation;
+    private Dictionary<int, Location> worldLocs;
+    private string winDir = System.Environment.GetEnvironmentVariable("windir");
+    public World()
+    {
+        Console.WriteLine("\nEntering Constructor for World in directory {0}", winDir);
 
-		//Console.WriteLine("Location Succesful");
-		c.setName("Carnival");
-		c.setDescription("large and bustling with children");
-		//starting location
+        worldLocs = new Dictionary<int, Location>();
+        buildWorld();
+    }
 
-		Location directions = new Location();
-		directions.setName("city");
-		directions.setDescription("a jungle of concrete and brick");
+    private void buildWorld()
+    {
+        processLongNameFile();
+        Location c = new Location();
 
-		Location directionsII = new Location();
-		directionsII.setName("seaport");
-		directionsII.setDescription("smelly and muddy");
+        //Console.WriteLine("Location Succesful");
+        c.setName("Carnival");
+        c.addDescriptionLine("large and bustling with children");
+        //starting location
+        startingLocation = c;
 
-		c.setEastneighbor(directionsII);
+        Location directions = new Location();
+        directions.setName("city");
+        directions.addDescriptionLine("a jungle of concrete and brick");
 
-		c.setWestneighbor(directions);
+        Location directionsII = new Location();
+        directionsII.setName("seaport");
+        directionsII.addDescriptionLine("smelly and muddy");
 
-		c.setEastneighbor(c);
+        c.setEastneighbor(directionsII);
 
-		directionsII.setWestneighbor(c);
+        c.setWestneighbor(directions);
 
-		c.describeMe();
+        c.setEastneighbor(c);
 
-		directions.describeMe();
+        directionsII.setWestneighbor(c);
 
-		directionsII.describeMe();
+        c.describeMe();
 
-		//c.setNorthneighbor(directions);
+        directions.describeMe();
 
-		//directions.setSouthneighbor(c);
+        directionsII.describeMe();
 
-		//directions.setNorthneighbor(directionsII);
+    }
+    void processLongNameFile()
+    {
+        string path = "c:/temp/data/LongDescriptions.txt";
+        string descLine;
+        string[]? descFields;
+        string errorMsg;
+        int thisLocIndex = 0;   // location index of the currently formatted location
+        int newLocIndex = 1000; // location index of line just read
+        Location thisLoc = new Location(); // throw-away to satisfy compiler?!?
 
-		//directions.setWestneighbor(directionsII);
+        int lineCount = 0;
 
-		//directionsII.setSouthneighbor(directions);
+        if (!File.Exists(path))
+        {
+            Console.WriteLine("data file {0} missing", path);
+            Environment.Exit(-1);
+        }
 
-		//directionsII.setWestneighbor(c);
+        StreamReader longDescReader = new StreamReader(path);
 
-		//directionsII.setEastneighbor(directions);
+        while (longDescReader.Peek() > -1)
+        {
+            descLine = longDescReader.ReadLine();
+            lineCount++;
+            try
+            {
+                descFields = descLine.Split(Convert.ToChar(9)); // ASCII tab character
+                if (descFields.Length != 2)
+                {
+                    errorMsg = "Parse of description file " + path + "failed at line " + lineCount + 
+                        "/n" + descLine;
+                    throw new DescriptionException(errorMsg);
+                }
+                // parsed line ok - process line
+                newLocIndex = int.Parse(descFields[0]);
+                if (newLocIndex != thisLocIndex)
+                {
+                    thisLoc = new Location();
+                    thisLoc.addDescriptionLine(descFields[1]);
+                    thisLocIndex++;
+                    worldLocs.Add(thisLocIndex, thisLoc);
+                }
+                else // changed location - format a new location and add to world
+                {
+                    thisLoc.addDescriptionLine(descFields[1]);
+                }
 
-	}
+            }
+            catch (DescriptionException exception)
+            {
+                Console.WriteLine(exception.Message);
+                continue;
+            }
+        }
+    }
+
+private class DescriptionException : ArgumentException
+    {
+        public DescriptionException()
+        {
+        }
+
+        public DescriptionException(string message)
+        : base(message)
+        {
+        }
+
+        public DescriptionException(string message, Exception inner)
+        : base(message, inner)
+        {
+        }
+    }
 }
+
 
 

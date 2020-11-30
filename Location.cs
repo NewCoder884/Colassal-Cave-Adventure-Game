@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class Location
 {
+	public List<string> Description;
+	public string Name;
 
 	Location northNeighbor;
 	Location southNeighbor;
@@ -10,12 +13,8 @@ public class Location
 
 	public Location()
 	{
-		//Console.WriteLine("Entering Constructor for Location");
+		Description = new List<String>();
 	}
-
-	public string Name;
-	
-	public string Description;
 
 	public string getName()
 	{
@@ -27,21 +26,23 @@ public class Location
 		Name = arg;
 	}
 
-	public string getDescription()
+	public List<string> getDescription()
 	{
 		return Description;
 	}
 
-	public void setDescription(string arg)
+	public void addDescriptionLine(string arg)
 	{
-		Description = arg;
-		//Console.WriteLine("Hello");
+		Description.Add(arg);
 	}
 
 	public void describeMe()
 	{
-		Console.WriteLine("\nThe {0} is {1}.",
-			getName(), getDescription());
+		Console.WriteLine();
+		foreach (string descriptiveLine in Description)
+        {
+			Console.WriteLine(descriptiveLine);
+        }
 
 		if (!(getEastneighbor() is null))
 			Console.WriteLine("East of the {0} there is a {1}", getName(), this.getEastneighbor().getName());
